@@ -32,6 +32,7 @@ import java.util.Objects;
  * The builder for {@link RedisCommandsContainer}.
  */
 public class RedisCommandsContainerBuilder {
+    private static final String DEFAULT_CLIENT_NAME = "default_client";
 
     /**
      * Initialize the {@link RedisCommandsContainer} based on the instance type.
@@ -88,7 +89,10 @@ public class RedisCommandsContainerBuilder {
           jedisClusterConfig.getConnectionTimeout(),
           jedisClusterConfig.getMaxRedirections(),
           jedisClusterConfig.getPassword(),
-          genericObjectPoolConfig);
+          DEFAULT_CLIENT_NAME,
+          genericObjectPoolConfig,
+          jedisClusterConfig.getSsl());
+
         return new RedisClusterContainer(jedisCluster);
     }
 
