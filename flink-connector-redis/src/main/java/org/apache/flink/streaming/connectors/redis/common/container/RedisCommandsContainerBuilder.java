@@ -88,7 +88,10 @@ public class RedisCommandsContainerBuilder {
           jedisClusterConfig.getConnectionTimeout(),
           jedisClusterConfig.getMaxRedirections(),
           jedisClusterConfig.getPassword(),
-          genericObjectPoolConfig);
+          "default",
+          genericObjectPoolConfig,
+          jedisClusterConfig.getSsl());
+
         return new RedisClusterContainer(jedisCluster);
     }
 
