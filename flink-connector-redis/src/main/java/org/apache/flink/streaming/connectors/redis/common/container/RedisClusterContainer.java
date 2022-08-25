@@ -19,6 +19,7 @@ package org.apache.flink.streaming.connectors.redis.common.container;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import redis.clients.jedis.JedisCluster;
+import redis.clients.jedis.Protocol;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -47,7 +48,12 @@ public class RedisClusterContainer implements RedisCommandsContainer, Closeable 
     }
 
     @Override
-    public void open() throws Exception {}
+    public void open() throws Exception {
+        this.jedisCluster.getClusterNodes().forEach((k,v)->{
+            v.getResource().sendCommand(Protocol.Command.ECHO, new byte[][]{"Test".getBytes()});
+            v.getResource().getBinaryBulkReply();
+        });
+    }
 
     @Override
     public void hset(final String key, final String hashField, final String value, final Integer ttl) {
