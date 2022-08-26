@@ -97,7 +97,7 @@ public class RedisSinkTest extends TestLogger {
                     throw e;
                 }
             }
-^        }
+        }
     }
 
     @Test
