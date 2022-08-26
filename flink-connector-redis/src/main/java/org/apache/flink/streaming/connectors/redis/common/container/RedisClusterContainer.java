@@ -48,7 +48,11 @@ public class RedisClusterContainer implements RedisCommandsContainer, Closeable 
     }
 
     @Override
-    public void open() throws Exception {}
+    public void open() throws Exception {
+        // dbSize() tries to open a connection and returns the number of key in the currently selected database.
+        // Here we use it to monitor if we can communicate with the cluster.
+        this.jedisCluster.dbSize();
+    }
 
     @Override
     public void hset(final String key, final String hashField, final String value, final Integer ttl) {
