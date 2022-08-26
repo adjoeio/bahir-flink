@@ -48,12 +48,7 @@ public class RedisClusterContainer implements RedisCommandsContainer, Closeable 
     }
 
     @Override
-    public void open() throws Exception {
-        this.jedisCluster.getClusterNodes().forEach((k,v)->{
-            v.getResource().sendCommand(Protocol.Command.ECHO, new byte[][]{"Test".getBytes()});
-            v.getResource().getBinaryBulkReply();
-        });
-    }
+    public void open() throws Exception {}
 
     @Override
     public void hset(final String key, final String hashField, final String value, final Integer ttl) {
